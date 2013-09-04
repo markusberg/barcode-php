@@ -21,7 +21,7 @@ $spacingRow = ( isset($_POST['spacingRow']) && is_numeric($_POST['spacingRow']) 
 // Label dimensions taken from: 
 // http://www.vinastar.com/docs/tls/TLSRLS_Barcode_Labels_Specs.pdf
 $wLabel = $tape == 'dlt' ? 57 : 76.2;    // max 57,2 mm & 78,2 mm
-$hLabel = $tape == 'dlt' ? 20 : 15.875;   // max 20,8 mm & 15,5 mm
+$hLabel = $tape == 'dlt' ? 21 : 15.875;   // max 20,8 mm & 15,5 mm
 
 $wBarcode = $tape == 'dlt' ? 47 : 65;  // max 47,0 mm & 69,9 mm
 $hBarcode = $tape == 'dlt' ? 14 : 10.5; // min 10,2 mm & 9,9 mm
@@ -73,7 +73,7 @@ $style = array(
 $iStartNo = (int)$startno;
 
 // Define the "boxes" that the letters and numbers will be printed in
-$iBoxes = ($tape=='dlt' ? 6 : 7);
+$iBoxes = ($tape=='dlt' ? 8 : 7);
 $wBox = ($wLabel-( 2*$radius ))/$iBoxes;
 $hBox = $hLabel-$hBarcode;
 
@@ -92,13 +92,19 @@ for ($c=0; $c<$cols; $c++) {
 
         // Truncate text to maximum allowed
         $txt = $prefix . sprintf("%0" . strlen($startno) . "d", $iStartNo++);
-        $txt = substr($txt, 0, 6);
+        $txt = substr($txt, 0, ($tape=='dlt' ? 8 : 6));
 
         if ($borders) {
             $pdf->RoundedRect($posX, $posY, $wLabel, $hLabel, $radius);
         }
 
 
+        // Begin by drawing the [colored] boxes
+        for ($i=0; $i<$iBoxes; $i++) {
+            $letter = $txt[$i];
+            $color = $colors && is_numeric($letter) ? $aColors[$letter] : array(255, 255,255);
+            $pdf->Rect($posX+$radius+$i*$wBox, $posY+$hBarcode, $wBox, $hBox, 'DF', array(), $color);
+        }
         // Print contents of boxes
         if ($textOrientation == 'vertical') {
             // Set a proper font size
@@ -113,20 +119,14 @@ for ($c=0; $c<$cols; $c++) {
             $pdf->SetXY($posX+$radius, $posY+$hBarcode);
         }
 
-        for ($i=0; $i<strlen($txt); $i++) {
-            $letter = substr($txt, $i, 1);
-            if ($colors && is_numeric($letter)) {
-                $pdf->SetFillColorArray($aColors[$letter]);
-            } else {
-                $pdf->SetFillColor(255, 255,255);
-            }
+        foreach (str_split($txt) as $letter) {
             if ($textOrientation=='vertical') {
-                $pdf->Cell($hBox, $wBox, $letter, 0, 2, 'C', true);
+                $pdf->Cell($hBox, $wBox, $letter, 0, 2, 'C');
             } else {
-                $pdf->Cell($wBox, $hBox, $letter, 0, 0, 'C', true);
+                $pdf->Cell($wBox, $hBox, $letter, 0, 0, 'C');
             }
         }
-        $pdf->SetFillColor(255, 255,255);
+
         if ($textOrientation=='vertical') {
             $pdf->StopTransform();
         }
@@ -138,19 +138,15 @@ for ($c=0; $c<$cols; $c++) {
                 $pdf->SetXY($posX+$radius+$wBox*6, $posY+$hLabel);
                 $pdf->StartTransform();
                 $pdf->Rotate(90);
-                $pdf->Cell($hBox, $wBox, strtoupper($tape), 0, 0, 'C', true);
+                $pdf->Cell($hBox, $wBox, strtoupper($tape), 0, 0, 'C');
                 $pdf->StopTransform();
             } else {
                 $pdf->SetX($posX+$radius+$wBox*6);
-                $pdf->Cell($wBox, $hBox, strtoupper($tape), 0, 0, 'C', true);
+                $pdf->Cell($wBox, $hBox, strtoupper($tape), 0, 0, 'C');
             }
             $txt .= strtoupper($tape);
         }
         $pdf->write1DBarcode( $txt, 'C39', $posX, $posY, $wLabel, $hBarcode, '', $style);
-        // Draw boxes
-        for ($i=0; $i<$iBoxes; $i++) {
-            $pdf->Rect($posX+$radius+$i*$wBox, $posY+$hBarcode, $wBox, $hBox);
-        }
     }
 }
 
