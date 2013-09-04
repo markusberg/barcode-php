@@ -57,7 +57,7 @@ function toggleAdvanced() {
 
 function reloadSample() {
     var image = document.createElement('img');
-    var fileName = (domTape.value=="dlt" ? "dlt" : "lto") + "-" + domTextOrientation.value + "-" + (domColors.checked ? "color" : "bw") + ".png";
+    var fileName = (domTape.value=="dlt" ? "dlt" : "lto") + "-" + domTextOrientation.value + "-" + (domColorized.checked ? "color" : "bw") + ".png";
     domSample.setAttribute("src", fileName);
 }
 
@@ -97,13 +97,13 @@ function init() {
     domStartno = document.getElementById("startno");
     domWarning = document.getElementById("warning");
     domTextOrientation = document.getElementById("textOrientation");
-    domColors = document.getElementById("colors");
+    domColorized = document.getElementById("colorized");
 
     // Display appropriate sample image depending on current selections
     domTape.addEventListener("change", reloadSample);
     domTape.addEventListener("change", resetMargins);
     domTextOrientation.addEventListener("change", reloadSample);
-    domColors.addEventListener("change", reloadSample);
+    domColorized.addEventListener("change", reloadSample);
 
     // Sanity check length of labels
     domPrefix.addEventListener("keyup", sanityCheck);
@@ -120,7 +120,7 @@ var domStartno;
 var domWarning;
 
 var domTextOrientation;
-var domColors;
+var domColorized;
 
 var domAdvanced;
 var domAdvancedBlock;
@@ -183,8 +183,8 @@ $page->printMenu();
                         <td><input type="checkbox" name="borders" value="true" id="borders" checked="checked" /><label for="borders"> labels are printed with borders</label></td>
                     </tr>
                     <tr>
-                        <th>Colors: </th>
-                        <td><input type="checkbox" name="colors" value="true" id="colors" /><label for="colors"> labels are colorized (tri-optic vibrant compatible)</label></td>
+                        <th>Colorized: </th>
+                        <td><input type="checkbox" name="colorized" value="true" id="colorized" /><label for="colorized"> labels are colorized (tri-optic vibrant compatible)</label></td>
                     </tr>
                     <tr>
                         <th>Text orientation: </th>
