@@ -73,6 +73,20 @@ function sanityCheck() {
     }
 }
 
+// Reset margins if Super DLT is selected as a tape type
+function resetMargins() {
+    if (this.value=='dlt') {
+        document.getElementById('textOrientation').value='horizontal';
+        document.getElementById('cols').value=3;
+        document.getElementById('rows').value=13;
+        document.getElementById('marginPageLeft').value=15;
+        document.getElementById('marginPageTop').value=15;
+        document.getElementById('spacingCol').value=0;
+        document.getElementById('spacingRow').value=0;
+        reloadSample();
+    }
+}
+
 function init() {
     domAdvanced = document.getElementById('advanced');
     domAdvancedBlock = document.getElementById('advancedBlock');
@@ -87,6 +101,7 @@ function init() {
 
     // Display appropriate sample image depending on current selections
     domTape.addEventListener("change", reloadSample);
+    domTape.addEventListener("change", resetMargins);
     domTextOrientation.addEventListener("change", reloadSample);
     domColors.addEventListener("change", reloadSample);
 
@@ -187,27 +202,27 @@ $page->printMenu();
                     </tr>
                     <tr>
                         <th>Columns: </th>
-                        <td><input type="text" name="cols" value="2" /></td>
+                        <td><input type="text" name="cols" id="cols" value="2" /></td>
                     </tr>
                     <tr>
                         <th>Rows: </th>
-                        <td><input type="text" name="rows" value="16" /></td>
+                        <td><input type="text" name="rows" id="rows" value="16" /></td>
                     </tr>
                     <tr>
                         <th>Page left margin: </th>
-                        <td><input type="text" name="marginPageLeft" value="18.5" />mm</td>
+                        <td><input type="text" name="marginPageLeft" id="marginPageLeft" value="18.5" />mm</td>
                     </tr>
                     <tr>
                         <th>Page top margin: </th>
-                        <td><input type="text" name="marginPageTop" value="22" />mm</td>
+                        <td><input type="text" name="marginPageTop" id="marginPageTop" value="22" />mm</td>
                     </tr>
                     <tr>
                         <th>Spacing between columns: </th>
-                        <td><input type="text" name="spacingCol" value="20.5" />mm</td>
+                        <td><input type="text" name="spacingCol" id="spacingCol" value="20.5" />mm</td>
                     </tr>
                     <tr>
                         <th>Spacing between rows: </th>
-                        <td><input type="text" name="spacingRow" value="0" />mm</td>
+                        <td><input type="text" name="spacingRow" id="spacingRow" value="0" />mm</td>
                     </tr>
                 </table>
             </div>
