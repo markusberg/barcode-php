@@ -151,5 +151,5 @@ for ($c=0; $c<$cols; $c++) {
     }
 }
 
-$pdf->Output('barcodes.pdf', 'I');
+$pdf->Output('barcodes.pdf', 'D');
 
