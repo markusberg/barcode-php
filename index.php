@@ -26,7 +26,7 @@
 
 
 
-include "../../site/Page.class.php";
+include "Page.class.php";
 $page = new Page();
 $page->setTitle("Barcode generator");
 $page->printHeader();
@@ -158,11 +158,9 @@ window.onload = init;
 
 </script>
 
-<?php
+</head>
 
-$page->printMenu();
-
-?>
+<body>
 
         <h1>Barcode label generator</h1>
         <p>Use this form to generate barcodes for your tape library. Each LTO label can contain at most six characters
@@ -256,6 +254,5 @@ $page->printMenu();
             </div>
             <input type="submit" value="Generate PDF" />
         </form>
-
-<?php
-$page->printFooter();
+    </body>
+</html>
