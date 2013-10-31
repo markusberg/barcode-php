@@ -20,7 +20,7 @@ $spacingRow = ( isset($_POST['spacingRow']) && is_numeric($_POST['spacingRow']) 
 
 // Label dimensions taken from: 
 // http://www.vinastar.com/docs/tls/TLSRLS_Barcode_Labels_Specs.pdf
-$wLabel = $tape == 'dlt' ? 57 : 76.2;    // max 57,2 mm & 78,2 mm
+$wLabel = $tape == 'dlt' ? 55 : 76.2;    // max 57,2 mm & 78,2 mm
 $hLabel = $tape == 'dlt' ? 21 : 15.875;   // max 20,8 mm & 15,5 mm
 
 $wBarcode = $tape == 'dlt' ? 47 : 65;  // max 47,0 mm & 69,9 mm
