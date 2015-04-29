@@ -177,6 +177,7 @@ window.onload = init;
                         <option value="l4">LTO-4</option>
                         <option value="l5">LTO-5</option>
                         <option value="l6">LTO-6</option>
+                        <option value="lw">LTO-6 Worm</option>
                     </select></td>
                 </tr>
                 <tr>
