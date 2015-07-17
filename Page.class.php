@@ -7,6 +7,17 @@ class Page {
         $this->title = $title;
     }
 
+    function printMenu() {
+        print "    </head>\n";
+        print "\n";
+        print "    <body>\n";
+    }
+
+    function printFooter() {
+        echo "    </body>\n";
+        echo "</html>\n";
+    }
+
     function printHeader() {
         print '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
 "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">

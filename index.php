@@ -190,10 +190,9 @@ window.onload = init;
 
 </script>
 
-</head>
-
-<body>
-
+<?php
+$page->printMenu();
+?>
         <h1>Barcode label generator</h1>
         <p>Use this form to generate barcodes for your tape library. Each LTO label can contain at most six characters
         plus a two-character media identifier (L3, L4, etc.). A DLT label is limited to six characters.</p>
@@ -292,5 +291,6 @@ window.onload = init;
         </form>
         <p>This software is open source, and licensed under the Apache License v2. You can download the source from my git server:<br />
         <code>https://kelvin.nu/barcode.git</code></p>
-    </body>
-</html>
+<?php
+$page->printFooter();
+?>
