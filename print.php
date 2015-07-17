@@ -24,7 +24,7 @@
  *
  */
 
-$tape = isset($_POST['tape']) ? $_POST['tape'] : 'l3';
+$tape = isset($_POST['suffix']) ? $_POST['suffix'] : 'l3';
 
 $prefix = isset($_POST['prefix']) ? strtoupper($_POST['prefix']) : '';
 $startno = isset($_POST['startno']) ? $_POST['startno'] : '0000';

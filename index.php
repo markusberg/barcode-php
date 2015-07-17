@@ -100,17 +100,43 @@ function sanityCheck() {
     }
 }
 
-// Reset margins if Super DLT is selected as a tape type
-function resetMargins() {
-    if (this.value=='dlt') {
-        document.getElementById('textOrientation').value='horizontal';
-        document.getElementById('cols').value=3;
-        document.getElementById('rows').value=13;
-        document.getElementById('marginPageLeft').value=15;
-        document.getElementById('marginPageTop').value=15;
-        document.getElementById('spacingCol').value=0;
-        document.getElementById('spacingRow').value=0;
-        reloadSample();
+// Set margins for LTO layout
+function setMarginsLTO() {
+    document.getElementById('textOrientation').value='vertical';
+    document.getElementById('cols').value=2;
+    document.getElementById('rows').value=16;
+    document.getElementById('marginPageLeft').value=18.5;
+    document.getElementById('marginPageTop').value=22;
+    document.getElementById('spacingCol').value=20.5;
+    document.getElementById('spacingRow').value=0;
+}
+// Set margins for Super DLT layout
+function setMarginsDLT() {
+    document.getElementById('textOrientation').value='horizontal';
+    document.getElementById('cols').value=3;
+    document.getElementById('rows').value=13;
+    document.getElementById('marginPageLeft').value=15;
+    document.getElementById('marginPageTop').value=15;
+    document.getElementById('spacingCol').value=0;
+    document.getElementById('spacingRow').value=0;
+}
+
+// Reset margins if tape type is changed from Super DLT to LTO or vice versa
+function tapeChange() {
+    if (oldTapeType == 'dlt' && this.value != 'dlt') {
+        setMarginsLTO();
+    } else if (oldTapeType != 'dlt' && this.value=='dlt') {
+        setMarginsDLT();
+    }
+    // Save the current value for next time
+    oldTapeType = this.value;
+    if (this.value == "custom") {
+        domSuffix.value = "";
+        domSuffix.disabled = false;
+        domSuffix.focus();
+    } else {
+        domSuffix.value = this.value.toUpperCase();
+        domSuffix.disabled = true;
     }
 }
 
@@ -121,14 +147,15 @@ function init() {
 
     domTape = document.getElementById("tape");
     domPrefix = document.getElementById("prefix");
+    domSuffix = document.getElementById("suffix");
     domStartno = document.getElementById("startno");
     domWarning = document.getElementById("warning");
     domTextOrientation = document.getElementById("textOrientation");
     domColorized = document.getElementById("colorized");
 
     // Display appropriate sample image depending on current selections
+    domTape.addEventListener("change", tapeChange);
     domTape.addEventListener("change", reloadSample);
-    domTape.addEventListener("change", resetMargins);
     domTextOrientation.addEventListener("change", reloadSample);
     domColorized.addEventListener("change", reloadSample);
 
@@ -138,11 +165,13 @@ function init() {
 
     // Reload sample image in case of back-button-press
     domSample = document.getElementById('sample');
+    setMarginsLTO();
     reloadSample();
 }
 
 var domTape;
 var domPrefix;
+var domSuffix;
 var domStartno;
 var domWarning;
 
@@ -153,6 +182,9 @@ var domAdvanced;
 var domAdvancedBlock;
 
 var domSample;
+
+var oldTapeType = "l3";
+
 
 window.onload = init;
 
@@ -178,7 +210,10 @@ window.onload = init;
                         <option value="l5">LTO-5</option>
                         <option value="l6">LTO-6</option>
                         <option value="lw">LTO-6 Worm</option>
-                    </select></td>
+                        <option value="cu">Cleaning unit</option>
+                        <option value="custom">Custom...</option>
+                    </select>
+                    <input type="text" name="suffix" id="suffix" disabled value="L3" size="2" maxlength="2" /></td>
                 </tr>
                 <tr>
                     <th>Prefix: </th>
@@ -229,27 +264,27 @@ window.onload = init;
                     </tr>
                     <tr>
                         <th>Columns: </th>
-                        <td><input type="text" name="cols" id="cols" value="2" /></td>
+                        <td><input type="text" name="cols" id="cols" /></td>
                     </tr>
                     <tr>
                         <th>Rows: </th>
-                        <td><input type="text" name="rows" id="rows" value="16" /></td>
+                        <td><input type="text" name="rows" id="rows" /></td>
                     </tr>
                     <tr>
                         <th>Page left margin: </th>
-                        <td><input type="text" name="marginPageLeft" id="marginPageLeft" value="18.5" />mm</td>
+                        <td><input type="text" name="marginPageLeft" id="marginPageLeft" />mm</td>
                     </tr>
                     <tr>
                         <th>Page top margin: </th>
-                        <td><input type="text" name="marginPageTop" id="marginPageTop" value="22" />mm</td>
+                        <td><input type="text" name="marginPageTop" id="marginPageTop" />mm</td>
                     </tr>
                     <tr>
                         <th>Spacing between columns: </th>
-                        <td><input type="text" name="spacingCol" id="spacingCol" value="20.5" />mm</td>
+                        <td><input type="text" name="spacingCol" id="spacingCol" />mm</td>
                     </tr>
                     <tr>
                         <th>Spacing between rows: </th>
-                        <td><input type="text" name="spacingRow" id="spacingRow" value="0" />mm</td>
+                        <td><input type="text" name="spacingRow" id="spacingRow" />mm</td>
                     </tr>
                 </table>
             </div>
