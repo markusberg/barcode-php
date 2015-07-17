@@ -290,5 +290,7 @@ window.onload = init;
             </div>
             <input type="submit" value="Generate PDF" />
         </form>
+        <p>This software is open source, and licensed under the Apache License v2. You can download the source from my git server:<br />
+        <code>https://kelvin.nu/barcode.git</code></p>
     </body>
 </html>
