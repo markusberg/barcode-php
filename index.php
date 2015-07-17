@@ -90,7 +90,10 @@ function reloadSample() {
 
 function sanityCheck() {
     // Ensure that startno contains only digits
-    domStartno.value = domStartno.value.replace(/\D/g, '');
+    var test = domStartno.value.replace(/\D/g, '');
+    if (test !== domStartno.value) {
+        domStartno.value = test;
+    }
 
     // Sanity check the length of the label
     if (domPrefix.value.length + domStartno.value.length > 6) {
