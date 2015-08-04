@@ -135,11 +135,11 @@ function tapeChange() {
     oldTapeType = this.value;
     if (this.value == "custom") {
         domSuffix.value = "";
-        domSuffix.disabled = false;
+        // domSuffix.disabled = false;
         domSuffix.focus();
     } else {
         domSuffix.value = this.value.toUpperCase();
-        domSuffix.disabled = true;
+        // domSuffix.disabled = true;
     }
 }
 
@@ -215,7 +215,7 @@ $page->printMenu();
                         <option value="cu">Cleaning unit</option>
                         <option value="custom">Custom...</option>
                     </select>
-                    <input type="text" name="suffix" id="suffix" disabled value="L3" size="2" maxlength="2" /></td>
+                    <input type="text" name="suffix" id="suffix" value="L3" size="2" maxlength="2" /></td>
                 </tr>
                 <tr>
                     <th>Prefix: </th>
