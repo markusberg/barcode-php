@@ -200,7 +200,7 @@ $page->printMenu();
         <p>Use this form to generate barcodes for your tape library. Each LTO label can contain at most six characters
         plus a two-character media identifier (L3, L4, etc.). A DLT label is limited to six characters.</p>
         <p>All feedback is welcome.</p>
-        <p>Latest update: 2015-07-17</p>
+        <p>Latest update: 2015-08-04</p>
         <form name="barcodeGenerator" method="post" action="print.php">
             <table>
                 <tr>
