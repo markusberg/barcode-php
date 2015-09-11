@@ -1,7 +1,0 @@
-barcode generator
-Markus Berg <markus@kelvin.nu>
-Licensed under the Apache License v2
-
-In order for this to work, you'll need to download the tcpdf library as well, and place it in the tcpdf subfolder.
-
-Good Luck.
